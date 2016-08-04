@@ -1,7 +1,7 @@
 {
     "globals": {
         "Promise": false,
-        "JSON": true,
+        "JSON": true
     },
     "bitwise": true,
     "browser": true,
