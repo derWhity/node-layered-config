@@ -4,7 +4,7 @@
   "description": "A simple configuration system allowing multiple configuration layers",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "chai": "3.5.0",
-    "chai-as-promised": "5.2.0"
+    "chai-as-promised": "5.2.0",
+    "mocha": "3.0.1"
   }
 }
