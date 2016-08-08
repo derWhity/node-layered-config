@@ -4,7 +4,6 @@
 
 var expect = require('chai').expect;
 var config = require('../../index.js');
-var path = require('path');
 
 describe('Retrieving data', function() {
     describe('get()', function() {
