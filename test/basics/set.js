@@ -49,7 +49,32 @@ describe('Storing data', function() {
             // Traversal order is now: three, two, one
         });
 
-        it('write into existing configuration nodes');
+        it('write into existing configuration nodes', function() {
+            config.set('a', 1337);
+            config.set('g.xx.yy', true);
+            config.set('c.cc', 1);
+            let layer = config.getLayer('three');
+            expect(layer.data).to.deep.equal({
+                a: 1337,
+                c: {
+                    cc: 1
+                },
+                d: {
+                    dd: {
+                        ddd3: false
+                    },
+                    dd2: {
+                        ddd2: true
+                    }
+                },
+                g: {
+                    xx: {
+                        yy: true
+                    }
+                }
+            });
+        });
+
         it('write into nonexisting configuration nodes');
         it('write into a specific layer');
         it('throw an error if any of the parameters is of a wrong type');
