@@ -3,7 +3,7 @@
     "maxErrors": 1000,
     "validateIndentation": {
         "value": 4,
-        "allExcept": ["comments"]
+        "allExcept": ["comments","emptyLines"]
     },
     "maximumLineLength": {
         "value": 120,
