@@ -126,6 +126,10 @@ describe('Retrieving data', function() {
             expect(config.get('d.dd3')).to.deep.equal({ddd: null, ddd2: false});
         });
 
+        it('load the whole configuration using an empty path', function() {
+            expect(config.get('')).to.deep.equal(layerThreeData);
+        });
+
         it('accepts different path separators', function() {
             config.pathSeparator = '/';
             expect(config.get('/d/dd/ddd2')).to.equal('Hello overwritten');
