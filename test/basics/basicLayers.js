@@ -56,6 +56,10 @@ describe('Layer handling', function() {
             config.addLayer('two', ovewriteLayerData);
             doCheck(['two', 'three', 'one'], [ovewriteLayerData, layerThreeData, layerOneData]);
         });
+        it('handle the addition of an empty layer', function() {
+            config.addLayer('xxx');
+            doCheck(['xxx', 'two', 'three', 'one'], [{}, ovewriteLayerData, layerThreeData, layerOneData]);
+        });
         it('throw an error if any of the parameters is of a wrong type', function() {
             expect(() => config.addLayer(1, {a: 1})).to.throw(TypeError);
             expect(() => config.addLayer('xxx', [])).to.throw(TypeError);
@@ -64,17 +68,17 @@ describe('Layer handling', function() {
 
     describe('addLayerAt()', function() {
         it('add a layer at the correct position', function() {
-            config.addLayerAt('four', layerFourData, 2);
+            config.addLayerAt('four', layerFourData, 3);
             doCheck(
-                ['two', 'three', 'four', 'one'],
-                [ovewriteLayerData, layerThreeData, layerFourData, layerOneData]
+                ['xxx', 'two', 'three', 'four', 'one'],
+                [{}, ovewriteLayerData, layerThreeData, layerFourData, layerOneData]
             );
         });
         it('add a layer at the end of the list when using an index > number of layers', function() {
             config.addLayerAt('five', layerFiveData, 100);
             doCheck(
-                ['two', 'three', 'four', 'one', 'five'],
-                [ovewriteLayerData, layerThreeData, layerFourData, layerOneData, layerFiveData]
+                ['xxx', 'two', 'three', 'four', 'one', 'five'],
+                [{}, ovewriteLayerData, layerThreeData, layerFourData, layerOneData, layerFiveData]
             );
         });
         it('throw an error if any of the parameters is of a wrong type', function() {
@@ -88,16 +92,17 @@ describe('Layer handling', function() {
         it('add a layer before another', function() {
             config.addLayerBefore('six', layerSixData, 'three');
             doCheck(
-                ['two', 'six', 'three', 'four', 'one', 'five'],
-                [ovewriteLayerData, layerSixData, layerThreeData, layerFourData, layerOneData, layerFiveData]
+                ['xxx', 'two', 'six', 'three', 'four', 'one', 'five'],
+                [{}, ovewriteLayerData, layerSixData, layerThreeData, layerFourData, layerOneData, layerFiveData]
             );
         });
         it('add a layer to the beginning of the list when the referenced layer is not found', function() {
             config.addLayerBefore('seven', layerSevenData, 'nonexisting');
             doCheck(
-                ['seven', 'two', 'six', 'three', 'four', 'one', 'five'],
+                ['seven', 'xxx', 'two', 'six', 'three', 'four', 'one', 'five'],
                 [
                     layerSevenData,
+                    {},
                     ovewriteLayerData,
                     layerSixData,
                     layerThreeData,
@@ -118,9 +123,10 @@ describe('Layer handling', function() {
         it('add a layer after another', function() {
             config.addLayerAfter('eight', layerEightData, 'four');
             doCheck(
-                ['seven', 'two', 'six', 'three', 'four', 'eight', 'one', 'five'],
+                ['seven', 'xxx', 'two', 'six', 'three', 'four', 'eight', 'one', 'five'],
                 [
                     layerSevenData,
+                    {},
                     ovewriteLayerData,
                     layerSixData,
                     layerThreeData,
@@ -134,9 +140,10 @@ describe('Layer handling', function() {
         it('add a layer to the end of the list when the referenced layer is not found', function() {
             config.addLayerAfter('nine', layerNineData, 'nonexisting');
             doCheck(
-                ['seven', 'two', 'six', 'three', 'four', 'eight', 'one', 'five', 'nine'],
+                ['seven', 'xxx', 'two', 'six', 'three', 'four', 'eight', 'one', 'five', 'nine'],
                 [
                     layerSevenData,
+                    {},
                     ovewriteLayerData,
                     layerSixData,
                     layerThreeData,
@@ -159,9 +166,10 @@ describe('Layer handling', function() {
         it('remove a single layer', function() {
             config.removeLayer('three');
             doCheck(
-                ['seven', 'two', 'six', 'four', 'eight', 'one', 'five', 'nine'],
+                ['seven', 'xxx', 'two', 'six', 'four', 'eight', 'one', 'five', 'nine'],
                 [
                     layerSevenData,
+                    {},
                     ovewriteLayerData,
                     layerSixData,
                     layerFourData,
@@ -175,8 +183,9 @@ describe('Layer handling', function() {
         it('remove multiple layers at once', function() {
             config.removeLayer(['six', 'one', 'five', 'seven']);
             doCheck(
-                ['two', 'four', 'eight', 'nine'],
+                ['xxx', 'two', 'four', 'eight', 'nine'],
                 [
+                    {},
                     ovewriteLayerData,
                     layerFourData,
                     layerEightData,
