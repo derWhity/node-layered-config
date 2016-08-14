@@ -17,8 +17,9 @@
   "author": "Stefan Westphal <whity@fressbrett.net>",
   "license": "MIT",
   "dependencies": {
+    "async": "2.0.1",
     "hjson": "^2.0.3",
-    "lodash": "^4.14.2"
+    "lodash": "4.15.0"
   },
   "devDependencies": {
     "chai": "3.5.0",
