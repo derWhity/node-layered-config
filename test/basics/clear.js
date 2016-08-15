@@ -1,5 +1,5 @@
 // Tests clearing up the layer data
-// jshint mocha:true
+/* global describe, it, beforeEach */
 'use strict';
 
 var expect = require('chai').expect;
@@ -7,7 +7,6 @@ var config = require('../../index.js');
 var _ = require('lodash');
 
 describe('Resetting layer data', function() {
-
     var layerOneData = {a: 1};
     var layerTwoData = {b: 2};
     var layerThreeData = {c: 3};

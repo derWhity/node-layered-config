@@ -1,5 +1,5 @@
 // Tests the get() functionality
-// jshint mocha:true
+/* global describe, it */
 'use strict';
 
 var expect = require('chai').expect;
@@ -7,7 +7,6 @@ var config = require('../../index.js');
 var Layer = require('../../lib/Layer.js');
 
 describe('Layer handling', function() {
-
     var layerOneData = {a: 1, b: 2, c: 3};
     var layerTwoData = {a: 4, b: 5, e: 6};
     var layerThreeData = {a: 7, d: 8, e: 9};
@@ -24,7 +23,7 @@ describe('Layer handling', function() {
         expect(layerNames).to.be.an('array');
         expect(layerNames).to.deep.equal(nameData);
         // Check the layers themselves
-        for (let i = 0; i < nameData.length; i++) {
+        for (let i = 0; i < nameData.length; i += 1) {
             let layerName = nameData[i];
             let layer = config.getLayer(layerName);
             let expectedData = expectedLayerData[i];

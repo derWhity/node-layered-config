@@ -1,5 +1,5 @@
 // Tests the set() functionality
-// jshint mocha:true
+/* global describe, it, before */
 'use strict';
 
 var expect = require('chai').expect;
@@ -7,14 +7,13 @@ var config = require('../../index.js');
 
 describe('Storing data', function() {
     describe('set()', function() {
-
         var layerOneData = {
             a: 1,
             b: 2,
             c: 3,
             d: {
                 dd: {
-                    ddd: true,
+                    ddd: true
                 }
             }
         };
@@ -141,7 +140,7 @@ describe('Storing data', function() {
             });
             layer = config.getLayer('two');
             expect(layer.data).to.deep.equal({
-                a: {'1234': {'s::2': true}},
+                a: {1234: {'s::2': true}},
                 b: 'overwritten',
                 e: null,
                 d: {
@@ -174,6 +173,5 @@ describe('Storing data', function() {
             expect(() => config.set(true, 'a')).to.throw(TypeError);
             expect(() => config.set(null, 'a')).to.throw(TypeError);
         });
-
     });
 });

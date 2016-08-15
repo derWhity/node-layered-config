@@ -1,0 +1,9 @@
+{
+    "extends": "google",
+    "installedESLint": true,
+    "rules": {
+        "indent": ["error", 4],
+        "max-len": ["error", 120],
+        "no-plusplus": ["error"]
+    }
+}

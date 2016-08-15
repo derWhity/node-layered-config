@@ -1,5 +1,5 @@
 // Tests the get() functionality
-// jshint mocha:true
+/* global describe, it, before */
 'use strict';
 
 var expect = require('chai').expect;
@@ -7,7 +7,6 @@ var config = require('../../index.js');
 
 describe('Retrieving data', function() {
     describe('get()', function() {
-
         var layerOneData = {
             a: 1,
             b: 2,
@@ -113,11 +112,10 @@ describe('Retrieving data', function() {
             expect(config.get('d.dd.ddd2', false, ['one', 'two'])).to.equal('Hello World');
             // Ignore nulls
             expect(config.get('d.dd3.ddd', true, ['two', 'one'])).to.equal(true);
-
         });
 
         it('ignore non-existing layers', function() {
-            expect(config.get('d.dd3.ddd', true, ['foo', 'bar', 'two', 'baz','one'])).to.equal(true);
+            expect(config.get('d.dd3.ddd', true, ['foo', 'bar', 'two', 'baz', 'one'])).to.equal(true);
             expect(config.get('b', false, 'foo')).to.equal(undefined);
         });
 
@@ -152,7 +150,6 @@ describe('Retrieving data', function() {
             expect(() => config.get('a', true, true)).to.throw(TypeError);
             expect(() => config.get('a', true, {})).to.throw(TypeError);
         });
-
     });
 
     describe('has()', function() {

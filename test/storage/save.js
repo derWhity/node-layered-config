@@ -1,5 +1,5 @@
 // Tests saving data to files
-// jshint mocha:true
+/* global describe, it, beforeEach */
 'use strict';
 
 var expect = require('chai').expect;
