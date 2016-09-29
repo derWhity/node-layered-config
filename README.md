@@ -1,4 +1,4 @@
-# node-layered-config 
+# node-layered-config
 [![Build Status](https://travis-ci.org/derWhity/node-layered-config.svg?branch=master)](https://travis-ci.org/derWhity/node-layered-config) [![Dependency Status](https://www.versioneye.com/user/projects/57a679a9fcd74d1602ca57fb/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57a679a9fcd74d1602ca57fb)
 
 A simple configuration system allowing multiple configuration layers (e.g. defaults, user-defined config)
@@ -28,7 +28,7 @@ If added by using `addlayer()`, every new layer will have a higher priority than
 ```javascript
 // Add a first layer including some data
 config.addLayer(
-    'layerOne', 
+    'layerOne',
     {
         one: 1,
         two: 2,
@@ -41,7 +41,7 @@ config.addLayer(
 // Add another layer
 // This one has a higher priority than "layerOne"
 config.addLayer(
-    'layerTwo', 
+    'layerTwo',
     {
         three: {
             foo: 'overwritten', // This value overwrites the one in layerOne
@@ -54,9 +54,11 @@ console.dir(config.getLayerNames()); // ["layerTwo", "layerOne"]
 
 ```
 
+`getLayerNames()` returns the names of the layers inside the configuration ordered from highest to lowest priority.
+
 #### Environment variables
 
-You can also add environment variables from process.env by using a layer name of 'process.env'. In this case, the configuration data passed is an options object. 
+You can also add environment variables from process.env by using a layer name of 'process.env'. In this case, the configuration data passed is an options object.
 
 These options are
 
@@ -71,9 +73,6 @@ These options are
 config.addLayer( 'process.env' );
 console.log(config.get('home'))
 ```
-
-`getLayerNames()` returns the names of the layers inside the configuration ordered from highest to lowest priority.
-
 ### Querying data
 
 Each value inside the configuration hierarchy can be addressed by using a configuration path that describes the position you want to access. By default, configuration paths use "." as separator. To get the value of "bar" in our example above, the corresponding configuration path would be `three.bar`.
@@ -128,7 +127,7 @@ You can choose to either load each layer one by one using `loadFromFile()` or to
 // Load the contents of userData.hjson into a new layer named "userData"
 config.loadFromFile('./data/userData.hjson')
     .then(/* ... */);
-    
+
 // Load the same file into a layer named "foo"
 config.loadFromFile('./data/userData.hjson', 'foo')
     .then(/* ... */);
@@ -140,10 +139,10 @@ config.removeAllLayers();
 // Files will be loaded in alphabetical order
 config.loadFromDirectory('./data')
     .then(/* ... */);
-    
+
 // Assuming that the directory contains the files "foo.hjson", "bar.json" and "baz.hjson",
 let names = config.getLayerNames(); // ["foo", "baz", "bar"]
-``` 
+```
 
 **Attention:**<br/>
 If both, a `.hjson` and a `.json` file exist having the same filename, the resulting configuration will only contain the data from the `.json` file, because it will be loaded after the `.hjson` one, thus overwriting its data.
@@ -165,10 +164,10 @@ config.addLayer('three', {c: 3}).writeToDisk = true;
 // Write layer "two" to disk
 config.saveToFile('two', 'myConfigFile.hjson')
     .then(/* ... */);
-    
+
 // This will write layers "one" and "three" to the target directory
 config.saveToDirectory('./data')
     .then(/* ... */);
-    
+
 // The "data" directory now contains the files "one.hjson" and "three.hjson"
 ```
