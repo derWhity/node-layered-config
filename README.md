@@ -53,6 +53,25 @@ config.addLayer(
 console.dir(config.getLayerNames()); // ["layerTwo", "layerOne"]
 
 ```
+
+#### Environment variables
+
+You can also add environment variables from process.env by using a layer name of 'process.env'. In this case, the configuration data passed is an options object. 
+
+These options are
+
+* lowerCase : _true||false_ -> converts environment variable names to lowercase (default true)
+* separator : _char_ -> if this is set, the variable name will be split into a path using the separator (default '_')
+* whitelist : _array_ -> a string array of variables to parse. If this is set, only these variables will be added (default is all variables)
+* match: _regex_ -> whatever variable name matching the regex will be added (default is all variables)
+
+
+```javascript
+// Add a layer containing process.env variables
+config.addLayer( 'process.env' );
+console.log(config.get('home'))
+```
+
 `getLayerNames()` returns the names of the layers inside the configuration ordered from highest to lowest priority.
 
 ### Querying data
