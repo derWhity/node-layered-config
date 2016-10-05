@@ -56,23 +56,6 @@ console.dir(config.getLayerNames()); // ["layerTwo", "layerOne"]
 
 `getLayerNames()` returns the names of the layers inside the configuration ordered from highest to lowest priority.
 
-#### Environment variables
-
-You can also add environment variables from process.env by using a layer name of 'process.env'. In this case, the configuration data passed is an options object.
-
-These options are
-
-* lowerCase : _true||false_ -> converts environment variable names to lowercase (default true)
-* separator : _char_ -> if this is set, the variable name will be split into a path using the separator (default '_')
-* whitelist : _array_ -> a string array of variables to parse. If this is set, only these variables will be added (default is all variables)
-* match: _regex_ -> whatever variable name matching the regex will be added (default is all variables)
-
-
-```javascript
-// Add a layer containing process.env variables
-config.addLayer( 'process.env' );
-console.log(config.get('home'))
-```
 ### Querying data
 
 Each value inside the configuration hierarchy can be addressed by using a configuration path that describes the position you want to access. By default, configuration paths use "." as separator. To get the value of "bar" in our example above, the corresponding configuration path would be `three.bar`.
@@ -115,7 +98,8 @@ let value = config.get('my.data.hello.world');
 console.log(value); // Output: '!'
 ```
 
-### Loading configuration data from the filesystem
+### Loading configuration data
+#### From the filesystem
 
 `layered-config` reads and writes its configuration data using [Hjson](https://hjson.org/). This way, the configuration files can be written in a little bit more relaxed way and contain - for example - comments.
 
@@ -146,6 +130,27 @@ let names = config.getLayerNames(); // ["foo", "baz", "bar"]
 
 **Attention:**<br/>
 If both, a `.hjson` and a `.json` file exist having the same filename, the resulting configuration will only contain the data from the `.json` file, because it will be loaded after the `.hjson` one, thus overwriting its data.
+
+#### From environment variables
+
+You can also load configuration data from environment variables using `loadFromEnv()`. This function takes an option object which configures the way, the environment variables are processed.
+
+The available options are:
+
+* `lowerCase` _(Boolean)_: convert environment variable names to lowercase? (default: `true`)
+* `separator` _(String)_: if set, the variable name will be split into a path using the separator (default: `'_'`)
+* `whitelist` _(String[])_: if set, only the variables inside this array will be loaded into the layer (default `undefined`)
+* `match` _(regex)_: if set, only variables that match the regular expression will be loaded into the layer (default: `undefined`)
+
+If neither `whitelist` nor `match` are set, all environment variables will be imported into the configuration layer.
+
+
+```javascript
+// Add a layer containing process.env variables
+// If no layer name is given, a new layer named 'process_env' will be created
+config.loadFromEnv();
+console.log(config.get('home'))
+```
 
 ### Saving configuration data into files
 
