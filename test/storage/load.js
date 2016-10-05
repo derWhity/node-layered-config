@@ -99,6 +99,12 @@ describe('Loading layer data', function() {
                 expect(config.getLayer('process_env').data).to.deep.equal(process.env);
             });
 
+            it('load the environment variables in a differently named layer', function() {
+                config.loadFromEnv({lowerCase: false}, 'MyLayer');
+                expect(config.getLayerNames()).to.deep.equal(['MyLayer']);
+                expect(config.getLayer('MyLayer').data).to.deep.equal(process.env);
+            });
+
             it('load only environment variables that are inside the whitelist', function() {
                 config.loadFromEnv({lowerCase: false, whitelist: ['TEST_VAR_ONE', 'TEST_VAR_TWO']});
                 expect(config.getLayerNames()).to.deep.equal(['process_env']);
